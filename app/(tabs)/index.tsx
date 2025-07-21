@@ -1,75 +1,195 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import { Colors } from '@/constants/Colors';
+import React from 'react';
+import { Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
+const featured = [
+  { id: 1, title: 'Stranger Things', poster: require('@/assets/images/posters/hero1.png') },
+  { id: 2, title: 'Money Heist', poster: require('@/assets/images/posters/hero1.png') },
+  { id: 3, title: 'Squid Game', poster: require('@/assets/images/posters/hero1.png') },
+];
+
+const categories = [
+  {
+    title: 'Trending Now',
+    items: [
+      { id: 4, poster: require('@/assets/images/posters/poster1.png') },
+      { id: 5, poster: require('@/assets/images/posters/poster2.png') },
+      { id: 6, poster: require('@/assets/images/posters/poster3.png') },
+      { id: 7, poster: require('@/assets/images/posters/poster4.png') },
+    ],
+  },
+  {
+    title: 'Top Picks for You',
+    items: [
+      { id: 7, poster: require('@/assets/images/posters/poster5.png') },
+      { id: 8, poster: require('@/assets/images/posters/poster6.png') },
+      { id: 9, poster: require('@/assets/images/posters/poster7.png') },
+      { id: 10, poster: require('@/assets/images/posters/poster8.png') },
+    ],
+  },
+];
 
 export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <View style={styles.container}>
+      <Image
+        source={require('@/assets/images/netflixIcon.png')}
+        style={styles.logo}
+        resizeMode="contain"
+      />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.featuredContainer}>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {featured.map((item, idx) => (
+              <View key={item.id} style={styles.featuredPosterWrapper}>
+                <Image
+                  source={item.poster}
+                  style={styles.featuredPoster}
+                  resizeMode="cover"
+                />
+                {/* Overlay for visibility */}
+                <View style={styles.featuredOverlay} />
+                {/* Title and buttons at bottom of image */}
+                <View style={styles.heroMetaAbsolute}>
+                  <Text style={styles.heroTitle}>{item.title}</Text>
+                  <View style={styles.heroActions}>
+                    <TouchableOpacity style={styles.heroActionBtn}>
+                      <Text style={styles.heroActionText}>My List</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.heroActionBtn, styles.playBtn]}>
+                      <Text style={styles.playBtnText}>▶ Play</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.heroActionBtn}>
+                      <Text style={styles.heroActionText}>Info</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>
+            ))}
+          </ScrollView>
+        </View>
+        {categories.map(category => (
+          <View key={category.title} style={styles.categoryContainer}>
+            <Text style={styles.categoryTitle}>{category.title}</Text>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              {category.items.map(item => (
+                <TouchableOpacity key={item.id}>
+                  <Image
+                    source={item.poster}
+                    style={styles.categoryPoster}
+                    resizeMode="cover"
+                  />
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
+          </View>
+        ))}
+      </ScrollView>
+    </View>
   );
 }
 
+const { width } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  container: {
+    flex: 1,
+    backgroundColor: Colors.brand.secondary[700],
+    paddingTop: 32,
+    marginStart: 16,
   },
-  stepContainer: {
-    gap: 8,
+  logo: {
+    width: 120,
+    height: 40,
+    alignSelf: 'center',
+    marginBottom: 16,
+  },
+  heroMetaContainer: {
+    alignItems: 'center',
     marginBottom: 8,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
+  heroTitle: {
+    color: '#fff',
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  heroActions: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 16,
+    marginBottom: 8,
+  },
+  heroActionBtn: {
+    backgroundColor: 'rgba(255,255,255,0.15)',
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 24,
+  },
+  heroActionText: {
+    color: '#fff',
+    fontWeight: '600',
+    fontSize: 16,
+  },
+  playBtn: {
+    backgroundColor: Colors.brand.primary[500],
+  },
+  playBtnText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  featuredContainer: {
+    marginBottom: 24,
+  },
+  featuredPosterWrapper: {
+    position: 'relative',
+    width: width * 0.9,
+    height: 400,
+    marginRight: 16,
+    borderRadius: 12,
+    overflow: 'hidden',
+    backgroundColor: Colors.brand.secondary[900],
+  },
+  featuredPoster: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 12,
+  },
+  featuredOverlay: {
     position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0,0,0,0.45)',
+  },
+  heroMetaAbsolute: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    alignItems: 'center',
+    paddingBottom: 24,
+    paddingHorizontal: 16,
+  },
+  categoryContainer: {
+    marginBottom: 24,
+  },
+  categoryTitle: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 8,
+    marginLeft: 8,
+  },
+  categoryPoster: {
+    width: 120,
+    height: 180,
+    borderRadius: 8,
+    marginRight: 12,
+    backgroundColor: Colors.brand.secondary[900],
   },
 });
