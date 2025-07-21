@@ -1,32 +1,53 @@
-
-import { Colors } from '@/constants/Colors';
-import { useRouter } from 'expo-router';
-import React from 'react';
-import { Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Colors } from "@/constants/Colors";
+import { useRouter } from "expo-router";
+import React from "react";
+import {
+  Dimensions,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const featured = [
-  { id: 1, title: 'Stranger Things', poster: require('@/assets/images/posters/hero1.png') },
-  { id: 2, title: 'Money Heist', poster: require('@/assets/images/posters/hero1.png') },
-  { id: 3, title: 'Squid Game', poster: require('@/assets/images/posters/hero1.png') },
+  {
+    id: 1,
+    title: "Stranger Things",
+    poster: require("@/assets/images/posters/hero1.png"),
+  },
+  {
+    id: 2,
+    title: "Money Heist",
+    poster: require("@/assets/images/posters/hero1.png"),
+  },
+  {
+    id: 3,
+    title: "Squid Game",
+    poster: require("@/assets/images/posters/hero1.png"),
+  },
 ];
 
 const categories = [
   {
-    title: 'Trending Now',
+    title: "Trending Now",
     items: [
-      { id: 4, poster: require('@/assets/images/posters/poster1.png') },
-      { id: 5, poster: require('@/assets/images/posters/poster2.png') },
-      { id: 6, poster: require('@/assets/images/posters/poster3.png') },
-      { id: 7, poster: require('@/assets/images/posters/poster4.png') },
+      { id: 4, poster: require("@/assets/images/posters/poster1.png") },
+      { id: 5, poster: require("@/assets/images/posters/poster2.png") },
+      { id: 6, poster: require("@/assets/images/posters/poster3.png") },
+      { id: 7, poster: require("@/assets/images/posters/poster4.png") },
     ],
   },
   {
-    title: 'Top Picks for You',
+    title: "Top Picks for You",
     items: [
-      { id: 7, poster: require('@/assets/images/posters/poster5.png') },
-      { id: 8, poster: require('@/assets/images/posters/poster6.png') },
-      { id: 9, poster: require('@/assets/images/posters/poster7.png') },
-      { id: 10, poster: require('@/assets/images/posters/poster8.png') },
+      { id: 7, poster: require("@/assets/images/posters/poster5.png") },
+      { id: 8, poster: require("@/assets/images/posters/poster6.png") },
+      { id: 9, poster: require("@/assets/images/posters/poster7.png") },
+      { id: 10, poster: require("@/assets/images/posters/poster8.png") },
     ],
   },
 ];
@@ -34,17 +55,48 @@ const categories = [
 export default function HomeScreen() {
   const router = useRouter();
   return (
-    <View style={styles.container}>
-      <Image
-        source={require('@/assets/images/netflixIcon.png')}
-        style={styles.logo}
-        resizeMode="contain"
-      />
+    <SafeAreaView style={styles.container}>
+      <View style={styles.heroMetaContainer}>
+        <View style={styles.logoContainer}>
+          <Image
+            source={require("@/assets/images/netflix.png")}
+            style={styles.logo}
+            resizeMode="contain"
+          />
+        </View>
+        <View style={styles.searchContainer}>
+          <TextInput
+            placeholder="Search"
+            placeholderTextColor="#999"
+            style={styles.searchInput}
+          />
+        </View>
+        <View style={styles.logoContainer}>
+          <Image
+            source={require("@/assets/images/profileIcon.png")}
+            style={styles.profileIcon}
+            resizeMode="contain"
+          />
+        </View>
+      </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.featuredContainer}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {featured.map((item, idx) => (
-              <View key={item.id} style={styles.featuredPosterWrapper}>
+              <TouchableOpacity
+                onPress={() =>
+                  router.push({
+                    pathname: "/carddetails",
+                    params: {
+                      title: item.title,
+                      poster: item.poster,
+                      description: "Description for this card",
+                    },
+                  })
+                }
+                key={item.id}
+                style={styles.featuredPosterWrapper}
+              >
                 <Image
                   source={item.poster}
                   style={styles.featuredPoster}
@@ -59,7 +111,9 @@ export default function HomeScreen() {
                     <TouchableOpacity style={styles.heroActionBtn}>
                       <Text style={styles.heroActionText}>My List</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.heroActionBtn, styles.playBtn]}>
+                    <TouchableOpacity
+                      style={[styles.heroActionBtn, styles.playBtn]}
+                    >
                       <Text style={styles.playBtnText}>▶ Play</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.heroActionBtn}>
@@ -67,23 +121,23 @@ export default function HomeScreen() {
                     </TouchableOpacity>
                   </View>
                 </View>
-              </View>
+              </TouchableOpacity>
             ))}
           </ScrollView>
         </View>
-        {categories.map(category => (
+        {categories.map((category) => (
           <View key={category.title} style={styles.categoryContainer}>
             <Text style={styles.categoryTitle}>{category.title}</Text>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {category.items.map(item => (
+              {category.items.map((item) => (
                 <TouchableOpacity
                   onPress={() =>
                     router.push({
-                      pathname: '/carddetails',
+                      pathname: "/carddetails",
                       params: {
                         title: category.title,
                         poster: item.poster,
-                        description: 'Description for this card',
+                        description: "Description for this card",
                       },
                     })
                   }
@@ -100,92 +154,122 @@ export default function HomeScreen() {
           </View>
         ))}
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 
-const { width } = Dimensions.get('window');
+const { width } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.brand.secondary[700],
-    paddingTop: 32,
-    marginStart: 16,
-  },
-  logo: {
-    width: 120,
-    height: 40,
-    alignSelf: 'center',
-    marginBottom: 16,
+    paddingStart: 16,
   },
   heroMetaContainer: {
-    alignItems: 'center',
-    marginBottom: 8,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 16,
+    marginBottom: 16,
+    width: '100%',
+    gap: 16,
+  },
+  logoContainer: {
+    flex: 1,
+  },
+  logo: {
+    width: '100%',
+    height: 30,
+    position: 'relative',
+    left: 0,
+    top: 0,
+    marginTop: 0,
+  },
+  searchContainer: {
+    flex: 3,
+    minWidth: 120,
+  },
+  searchInput: {
+    backgroundColor: Colors.brand.secondary[800],
+    color: "#fff",
+    padding: 8,
+    borderRadius: 8,
+    width: '100%',
+    marginTop: 0,
+    fontSize: 16,
+  },
+  profileIcon: {
+    width: '100%',
+    height: 20,
+    position: 'relative',
+    left: 0,
+    top: 0,
+    marginTop: 0,
   },
   heroTitle: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 28,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 8,
   },
   heroActions: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     gap: 16,
     marginBottom: 8,
   },
   heroActionBtn: {
-    backgroundColor: 'rgba(255,255,255,0.15)',
+    backgroundColor: "rgba(255,255,255,0.15)",
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 24,
   },
   heroActionText: {
-    color: '#fff',
-    fontWeight: '600',
+    color: "#fff",
+    fontWeight: "600",
     fontSize: 16,
   },
   playBtn: {
     backgroundColor: Colors.brand.primary[500],
   },
   playBtnText: {
-    color: '#fff',
-    fontWeight: 'bold',
+    color: "#fff",
+    fontWeight: "bold",
     fontSize: 16,
   },
   featuredContainer: {
     marginBottom: 24,
   },
   featuredPosterWrapper: {
-    position: 'relative',
-    width: width * 0.9,
+    position: "relative",
+    width: width * 0.92,
     height: 400,
     marginRight: 16,
     borderRadius: 12,
-    overflow: 'hidden',
+    overflow: "hidden",
     backgroundColor: Colors.brand.secondary[900],
   },
   featuredPoster: {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
     borderRadius: 12,
   },
   featuredOverlay: {
-    position: 'absolute',
+    position: "absolute",
     left: 0,
     right: 0,
     top: 0,
     bottom: 0,
-    backgroundColor: 'rgba(0,0,0,0.45)',
+    backgroundColor: "rgba(0,0,0,0.45)",
   },
   heroMetaAbsolute: {
-    position: 'absolute',
+    position: "absolute",
     left: 0,
     right: 0,
     bottom: 0,
-    alignItems: 'center',
+    alignItems: "center",
     paddingBottom: 24,
     paddingHorizontal: 16,
   },
@@ -193,9 +277,9 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   categoryTitle: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 8,
     marginLeft: 8,
   },

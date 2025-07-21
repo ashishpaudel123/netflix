@@ -7,7 +7,7 @@ export default function CardDetailsScreen() {
   const params = useLocalSearchParams();
   // params: { title, poster, description }
   return (
-    <View style={{ flex: 1, backgroundColor: '#181818', justifyContent: 'center', alignItems: 'center' }}>
+    <View style={{ flex: 1, backgroundColor: '#181818' }}>
       <CardDetails
         title={params.title as string}
         poster={params.poster}
