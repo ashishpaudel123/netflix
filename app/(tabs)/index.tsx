@@ -1,5 +1,6 @@
 
 import { Colors } from '@/constants/Colors';
+import { useRouter } from 'expo-router';
 import React from 'react';
 import { Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
@@ -31,6 +32,7 @@ const categories = [
 ];
 
 export default function HomeScreen() {
+  const router = useRouter();
   return (
     <View style={styles.container}>
       <Image
@@ -74,7 +76,19 @@ export default function HomeScreen() {
             <Text style={styles.categoryTitle}>{category.title}</Text>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               {category.items.map(item => (
-                <TouchableOpacity key={item.id}>
+                <TouchableOpacity
+                  onPress={() =>
+                    router.push({
+                      pathname: '/carddetails',
+                      params: {
+                        title: category.title,
+                        poster: item.poster,
+                        description: 'Description for this card',
+                      },
+                    })
+                  }
+                  key={item.id}
+                >
                   <Image
                     source={item.poster}
                     style={styles.categoryPoster}
