@@ -13,6 +13,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import GoBackButton from "./GoBackButton";
 
 export interface NetflixCardDetailsProps {
   title?: string;
@@ -67,7 +68,7 @@ const NetflixCardDetails: React.FC<NetflixCardDetailsProps> = ({
     }).start();
   };
 
-    const handleLikePressIn = () => {
+  const handleLikePressIn = () => {
     Animated.spring(scaleLikeAnim, {
       toValue: 0.95,
       useNativeDriver: true,
@@ -111,13 +112,17 @@ const NetflixCardDetails: React.FC<NetflixCardDetailsProps> = ({
         showsVerticalScrollIndicator={false}
       >
         {/* Poster with Netflix badge */}
-        <Animated.View style={[{ transform: [{ scale: scalePlayAnim }] }, styles.posterContainer]}>
+        <Animated.View
+          style={[
+            { transform: [{ scale: scalePlayAnim }] },
+            styles.posterContainer,
+          ]}
+        >
           <Image source={poster} style={styles.poster} resizeMode="cover" />
+          <GoBackButton style={styles.goBackButton} />
+
           <View style={styles.netflixBadge}>
             <Text style={styles.netflixText}>{App.name}</Text>
-          </View>
-          <View style={styles.starBadge}>
-            <View style={styles.starIcon} />
           </View>
         </Animated.View>
 
@@ -163,7 +168,9 @@ const NetflixCardDetails: React.FC<NetflixCardDetailsProps> = ({
 
           {/* Action buttons */}
           <View style={styles.actionButtons}>
-            <Animated.View style={[{ transform: [{ scale: scaleMylistAnim }] }]}>
+            <Animated.View
+              style={[{ transform: [{ scale: scaleMylistAnim }] }]}
+            >
               <Pressable
                 onPressIn={handleMyListPressIn}
                 onPressOut={handleMyListPressOut}
@@ -180,14 +187,19 @@ const NetflixCardDetails: React.FC<NetflixCardDetailsProps> = ({
                 <Text style={styles.actionText}>{App.myList}</Text>
               </Pressable>
             </Animated.View>
-            
+
             <Animated.View style={[{ transform: [{ scale: scaleLikeAnim }] }]}>
-            <Pressable onPressIn={handleLikePressIn} onPressOut={handleLikePressOut} style={styles.actionBtn} onPress={onRate}>
-              <View style={styles.iconContainer}>
-                <Ionicons name="thumbs-up-outline" size={20} color="white" />
-              </View>
-              <Text style={styles.actionText}>{App.rate}</Text>
-            </Pressable>
+              <Pressable
+                onPressIn={handleLikePressIn}
+                onPressOut={handleLikePressOut}
+                style={styles.actionBtn}
+                onPress={onRate}
+              >
+                <View style={styles.iconContainer}>
+                  <Ionicons name="thumbs-up-outline" size={20} color="white" />
+                </View>
+                <Text style={styles.actionText}>{App.rate}</Text>
+              </Pressable>
             </Animated.View>
 
             <TouchableOpacity style={styles.actionBtn} onPress={onShare}>
@@ -236,6 +248,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "black",
   },
+  goBackButton: {
+    position: "absolute",
+    top: 4,
+    left: 48,
+    zIndex: 1000,
+    padding: 7,
+    backgroundColor: "red",
+    borderRadius: 20,
+  },
   scrollView: {
     flex: 1,
   },
@@ -251,7 +272,7 @@ const styles = StyleSheet.create({
   netflixBadge: {
     position: "absolute",
     top: 10,
-    left: 55,
+    right: 55,
     backgroundColor: Colors.brand.primary[500],
     paddingHorizontal: 8,
     paddingVertical: 4,
@@ -265,7 +286,7 @@ const styles = StyleSheet.create({
   starBadge: {
     position: "absolute",
     top: 10,
-    right: 55,
+    left: 55,
     backgroundColor: Colors.brand.primary[500],
     width: 20,
     height: 20,
