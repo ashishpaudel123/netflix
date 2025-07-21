@@ -1,9 +1,11 @@
 import { App } from "@/constants/AppInfo";
 import { Colors } from "@/constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
+  Animated,
   Image,
+  Pressable,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -46,6 +48,56 @@ const NetflixCardDetails: React.FC<NetflixCardDetailsProps> = ({
   onShare,
 }) => {
   const [isInMyList, setIsInMyList] = useState(false);
+  const scalePlayAnim = useRef(new Animated.Value(1)).current;
+  const scaleLikeAnim = useRef(new Animated.Value(1)).current;
+  const scaleMylistAnim = useRef(new Animated.Value(1)).current;
+  const handlePlayPressIn = () => {
+    Animated.spring(scalePlayAnim, {
+      toValue: 0.95,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const handlePlayPressOut = () => {
+    Animated.spring(scalePlayAnim, {
+      toValue: 1,
+      friction: 3,
+      tension: 40,
+      useNativeDriver: true,
+    }).start();
+  };
+
+    const handleLikePressIn = () => {
+    Animated.spring(scaleLikeAnim, {
+      toValue: 0.95,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const handleLikePressOut = () => {
+    Animated.spring(scaleLikeAnim, {
+      toValue: 1,
+      friction: 3,
+      tension: 40,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const handleMyListPressIn = () => {
+    Animated.spring(scaleMylistAnim, {
+      toValue: 0.95,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const handleMyListPressOut = () => {
+    Animated.spring(scaleMylistAnim, {
+      toValue: 1,
+      friction: 3,
+      tension: 40,
+      useNativeDriver: true,
+    }).start();
+  };
 
   const handleAddToList = () => {
     setIsInMyList(!isInMyList);
@@ -59,7 +111,7 @@ const NetflixCardDetails: React.FC<NetflixCardDetailsProps> = ({
         showsVerticalScrollIndicator={false}
       >
         {/* Poster with Netflix badge */}
-        <View style={styles.posterContainer}>
+        <Animated.View style={[{ transform: [{ scale: scalePlayAnim }] }, styles.posterContainer]}>
           <Image source={poster} style={styles.poster} resizeMode="cover" />
           <View style={styles.netflixBadge}>
             <Text style={styles.netflixText}>{App.name}</Text>
@@ -67,7 +119,7 @@ const NetflixCardDetails: React.FC<NetflixCardDetailsProps> = ({
           <View style={styles.starBadge}>
             <View style={styles.starIcon} />
           </View>
-        </View>
+        </Animated.View>
 
         {/* Content */}
         <View style={styles.content}>
@@ -88,10 +140,17 @@ const NetflixCardDetails: React.FC<NetflixCardDetailsProps> = ({
           </View>
 
           {/* Play button */}
-          <TouchableOpacity style={styles.playButton} onPress={onPlay}>
-            <Ionicons name="play" size={20} color="white" />
-            <Text style={styles.playButtonText}>{App.playButton}</Text>
-          </TouchableOpacity>
+          <Animated.View style={[{ transform: [{ scale: scalePlayAnim }] }]}>
+            <Pressable
+              onPressIn={handlePlayPressIn}
+              onPressOut={handlePlayPressOut}
+              style={styles.playButton}
+              onPress={onPlay}
+            >
+              <Ionicons name="play" size={20} color="white" />
+              <Text style={styles.playButtonText}>{App.playButton}</Text>
+            </Pressable>
+          </Animated.View>
 
           {/* Description */}
           <Text style={styles.description}>{description}</Text>
@@ -104,26 +163,32 @@ const NetflixCardDetails: React.FC<NetflixCardDetailsProps> = ({
 
           {/* Action buttons */}
           <View style={styles.actionButtons}>
-            <TouchableOpacity
-              onPress={handleAddToList}
-              style={styles.actionBtn}
-            >
-              <View style={styles.iconContainer}>
-                {isInMyList ? (
-                  <Ionicons name="checkmark" size={20} color="white" />
-                ) : (
-                  <View style={styles.checkboxEmpty} />
-                )}
-              </View>
-              <Text style={styles.actionText}>{App.myList}</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.actionBtn} onPress={onRate}>
+            <Animated.View style={[{ transform: [{ scale: scaleMylistAnim }] }]}>
+              <Pressable
+                onPressIn={handleMyListPressIn}
+                onPressOut={handleMyListPressOut}
+                onPress={handleAddToList}
+                style={styles.actionBtn}
+              >
+                <View style={styles.iconContainer}>
+                  {isInMyList ? (
+                    <Ionicons name="checkmark" size={20} color="white" />
+                  ) : (
+                    <View style={styles.checkboxEmpty} />
+                  )}
+                </View>
+                <Text style={styles.actionText}>{App.myList}</Text>
+              </Pressable>
+            </Animated.View>
+            
+            <Animated.View style={[{ transform: [{ scale: scaleLikeAnim }] }]}>
+            <Pressable onPressIn={handleLikePressIn} onPressOut={handleLikePressOut} style={styles.actionBtn} onPress={onRate}>
               <View style={styles.iconContainer}>
                 <Ionicons name="thumbs-up-outline" size={20} color="white" />
               </View>
               <Text style={styles.actionText}>{App.rate}</Text>
-            </TouchableOpacity>
+            </Pressable>
+            </Animated.View>
 
             <TouchableOpacity style={styles.actionBtn} onPress={onShare}>
               <View style={styles.iconContainer}>
@@ -142,7 +207,9 @@ const NetflixCardDetails: React.FC<NetflixCardDetailsProps> = ({
 
           {/* Trailers section */}
           <View style={styles.trailersSection}>
-            <Text style={styles.trailersTitle}>{App.TrailersAndMore.toUpperCase()}</Text>
+            <Text style={styles.trailersTitle}>
+              {App.TrailersAndMore.toUpperCase()}
+            </Text>
             <View style={styles.trailerContainer}>
               <Image
                 source={{
