@@ -17,16 +17,19 @@ const featured = [
   {
     id: 1,
     title: "Stranger Things",
+    subtitle: "Season 4",
     poster: require("@/assets/images/posters/hero1.png"),
   },
   {
     id: 2,
     title: "Money Heist",
+    subtitle: "Part 5",
     poster: require("@/assets/images/posters/hero1.png"),
   },
   {
     id: 3,
     title: "Squid Game",
+    subtitle: "Season 1",
     poster: require("@/assets/images/posters/hero1.png"),
   },
 ];
@@ -88,6 +91,7 @@ export default function HomeScreen() {
                   router.push({
                     pathname: "/carddetails",
                     params: {
+                      id: item.id,
                       title: item.title,
                       poster: item.poster,
                       description: "Description for this card",

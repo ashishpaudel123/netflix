@@ -28,6 +28,7 @@ export default function RootLayout() {
             animation: 'slide_from_bottom',
           }}
         />
+        <Stack.Screen name='playvideo' options={{ headerShown: false, animation: 'slide_from_bottom' }} />
         <Stack.Screen name="+not-found" />
       </Stack>
       <StatusBar style="auto" />

@@ -16,6 +16,7 @@ import {
 import GoBackButton from "./GoBackButton";
 
 export interface NetflixCardDetailsProps {
+  id: number;
   title?: string;
   subtitle?: string;
   poster?: any;
@@ -32,6 +33,7 @@ export interface NetflixCardDetailsProps {
 }
 
 const NetflixCardDetails: React.FC<NetflixCardDetailsProps> = ({
+  id = 1,
   title = "BLACK MIRROR",
   subtitle = "BANDERSNATCH",
   poster = {
