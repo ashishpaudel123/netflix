@@ -1,4 +1,5 @@
 import { Colors } from "@/constants/Colors";
+import { VideoPlayerScreenProps } from "@/type/type";
 import { useEvent } from "expo";
 import { useVideoPlayer, VideoView } from "expo-video";
 import {
@@ -10,8 +11,13 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import GoBackButton from "./GoBackButton";
+export const defaultVideoSource =
+  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
 
-export default function VideoPlayerScreen() {
+export default function VideoPlayerScreen({
+  videoSource,
+  title = "Video Player",
+}: VideoPlayerScreenProps) {
   return (
     <SafeAreaView
       edges={["top"]}
@@ -25,22 +31,32 @@ export default function VideoPlayerScreen() {
           top: 0,
         }}
       >
-        <Text style={{ color: "white", fontSize: 20, marginLeft: 58, position: "absolute",top:4 }}>Video Player</Text>
+        <Text
+          style={{
+            color: "white",
+            fontSize: 20,
+            marginLeft: 58,
+            position: "absolute",
+            top: 4,
+          }}
+        >
+          {title}
+        </Text>
         <GoBackButton style={{ position: "absolute", top: 0, left: 15 }} />
       </View>
-      <VideoScreen />
+      <VideoScreen videoSource={videoSource} />
     </SafeAreaView>
   );
 }
 
-const videoSource =
-  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
-
-function VideoScreen() {
-  const player = useVideoPlayer(videoSource, (player) => {
-    player.loop = true;
-    player.play();
-  });
+function VideoScreen({ videoSource }: VideoPlayerScreenProps) {
+  const player = useVideoPlayer(
+    videoSource ? videoSource : defaultVideoSource,
+    (player) => {
+      player.loop = true;
+      player.play();
+    }
+  );
 
   const { isPlaying } = useEvent(player, "playingChange", {
     isPlaying: player.playing,

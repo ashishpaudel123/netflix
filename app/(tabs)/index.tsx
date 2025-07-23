@@ -18,19 +18,59 @@ const featured = [
     id: 1,
     title: "Stranger Things",
     subtitle: "Season 4",
+    description:
+      "A thrilling series about a group of kids in the 80s who encounter supernatural events.",
     poster: require("@/assets/images/posters/hero1.png"),
+    videoSource:
+      "https://ik.imagekit.io/ashishpaudel/netflix/video.webm/ik-video.mp4?updatedAt=1753162508413",
+    subtitles: [
+      {
+        language: "English",
+        uri: "https://ik.imagekit.io/ashishpaudel/netflix/subtitles/english.vtt",
+      },
+      {
+        language: "Hindi",
+        uri: "https://ik.imagekit.io/ashishpaudel/netflix/subtitles/hindi.vtt",
+      },
+    ],
   },
   {
     id: 2,
     title: "Money Heist",
     subtitle: "Part 5",
+    description:
+      "A group of robbers plan the biggest heist in recorded history.",
     poster: require("@/assets/images/posters/hero1.png"),
+    videoSource: null,
+    subtitles: [
+      {
+        language: "English",
+        uri: null,
+      },
+      {
+        language: "Hindi",
+        uri: null,
+      },
+    ],
   },
   {
     id: 3,
     title: "Squid Game",
     subtitle: "Season 1",
+    description:
+      "A deadly game where contestants risk their lives for a cash prize.",
     poster: require("@/assets/images/posters/hero1.png"),
+    videoSource: null,
+    subtitles: [
+      {
+        language: "English",
+        uri: null,
+      },
+      {
+        language: "Hindi",
+        uri: null,
+      },
+    ],
   },
 ];
 
@@ -87,17 +127,31 @@ export default function HomeScreen() {
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {featured.map((item, idx) => (
               <TouchableOpacity
-                onPress={() =>
+                onPress={() => {
                   router.push({
                     pathname: "/carddetails",
                     params: {
                       id: item.id,
                       title: item.title,
+                      subtitle: item.subtitle,
+                      subtitles: item.subtitles?.map((sub) => {
+                        return { language: sub?.language, uri: sub?.uri };
+                      }),
                       poster: item.poster,
                       description: "Description for this card",
+                      videoSource: item.videoSource,
                     },
-                  })
-                }
+                  });
+                  console.log(
+                    "Navigating detail screen:",
+                    "id:",
+                    item.id,
+                    "title:",
+                    item.title,
+                    "videoSource:",
+                    item.videoSource
+                  );
+                }}
                 key={item.id}
                 style={styles.featuredPosterWrapper}
               >
@@ -176,16 +230,16 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: 16,
     marginBottom: 16,
-    width: '100%',
+    width: "100%",
     gap: 16,
   },
   logoContainer: {
     flex: 1,
   },
   logo: {
-    width: '100%',
+    width: "100%",
     height: 30,
-    position: 'relative',
+    position: "relative",
     left: 0,
     top: 0,
     marginTop: 0,
@@ -199,14 +253,14 @@ const styles = StyleSheet.create({
     color: "#fff",
     padding: 8,
     borderRadius: 8,
-    width: '100%',
+    width: "100%",
     marginTop: 0,
     fontSize: 16,
   },
   profileIcon: {
-    width: '100%',
+    width: "100%",
     height: 20,
-    position: 'relative',
+    position: "relative",
     left: 0,
     top: 0,
     marginTop: 0,
