@@ -113,8 +113,8 @@ const NetflixSplashScreen: React.FC<NetflixSplashScreenProps> = ({
   };
 
   const logoStyle = {
-    width: Math.min(screenWidth * 0.8, 300),
-    height: Math.min(screenWidth * 0.2, 80),
+    width: Math.min(screenWidth * 0.9, 300),
+    height: Math.min(screenWidth * 0.24, 80),
     resizeMode: "contain" as "contain",
   };
 
