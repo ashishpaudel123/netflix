@@ -104,7 +104,7 @@ export default function HomeScreen() {
           <Image
             source={require("@/assets/images/netflix.png")}
             style={styles.logo}
-            resizeMode="contain"
+            resizeMode="cover"
           />
         </View>
         <View style={styles.searchContainer}>
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: 16,
-    marginBottom: 16,
+    marginBottom: 9,
     width: "100%",
     gap: 16,
   },
@@ -237,10 +237,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   logo: {
-    width: "100%",
+    width: 55,
     height: 30,
     position: "relative",
-    left: 0,
+    left: -15,
     top: 0,
     marginTop: 0,
   },
