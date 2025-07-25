@@ -10,7 +10,7 @@ export default function Register() {
 
   return (
    <SafeAreaView style={{ flex: 1,backgroundColor: '#000000'}}>
-    <GoBackButton style={{ position: 'absolute', top: 70, left: 20 ,zIndex:999}} />
+    <GoBackButton iconSize={23} style={{ position: 'absolute', top: 70, left: 20 ,zIndex:999,backgroundColor:'transparent'}} />
       <LoginRegisterCard 
         authCardName="Sign Up" 
         isLoginCard={false}
