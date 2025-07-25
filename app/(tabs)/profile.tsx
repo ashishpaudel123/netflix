@@ -1,12 +1,11 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 
-import LoginRegisterCard from '@/components/LoginRegisterCard';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Profile() {
   return (
     <SafeAreaView edges={["left", "top", "right"]} style={{ flex: 1, backgroundColor: '#000' }}>
-      <LoginRegisterCard />
+      <Text style={{ color: '#fff' }}>Profile Page</Text>
     </SafeAreaView>
   );
 }
