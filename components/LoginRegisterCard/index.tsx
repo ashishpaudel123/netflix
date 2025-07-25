@@ -6,20 +6,20 @@ import { Link } from "expo-router";
 import { Formik } from "formik";
 import React from "react";
 import {
-    Button,
-    ImageBackground,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  Button,
+  ImageBackground,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
 
 const backgroundImage = require("../../assets/images/posters/poster4.png");
 interface LoginRegisterCardProps {
-  authCardName: string;
-  authButtonName: string;
+  authCardName?: string;
+  authButtonName?: string;
   onAuthButtonPress: () => void;
   firstPlaceholderText?: string;
   secondPlaceholderText?: string;
@@ -27,12 +27,13 @@ interface LoginRegisterCardProps {
   secondButtonName?: string;
   checkBoxName?: string;
   forgetPasswordText?: string;
-  forgetPassword: boolean;
+  forgetPassword?: boolean;
 }
 
 const LoginRegisterCard: React.FC<LoginRegisterCardProps> = ({
   authCardName = "Sign In",
   authButtonName = "Sign In",
+  onAuthButtonPress,
   firstPlaceholderText = "Email or phone number",
   secondPlaceholderText = "Password",
   newOrAlreadyUserText = "New to Netflix?",
@@ -56,7 +57,10 @@ const LoginRegisterCard: React.FC<LoginRegisterCardProps> = ({
             }}
             validationSchema={authValidationSchema}
             onSubmit={(values) => {
-              alert(`Submitted: ${values.email}, ${values.password}`);
+              // Here you can add validation or API call logic
+              console.log(`Submitted: ${values.email}, ${values.password}`);
+              // Call the auth callback to proceed to the next screen
+              onAuthButtonPress();
             }}
           >
             {({ handleChange, handleSubmit, values, errors, touched }) => (
@@ -112,7 +116,7 @@ const LoginRegisterCard: React.FC<LoginRegisterCardProps> = ({
                   </View>
                 </View>
                 <TouchableOpacity
-                  onPress={handleSubmit}
+                  onPress={() => handleSubmit()}
                   style={styles.primaryButton}
                 >
                   <Text style={styles.primaryButtonText}>{authButtonName}</Text>
@@ -143,7 +147,7 @@ const LoginRegisterCard: React.FC<LoginRegisterCardProps> = ({
                   <Text style={styles.signUpPromptText}>
                     {newOrAlreadyUserText}
                   </Text>
-                  <Link href={"/register"}>
+                  <Link href={"/(auth)/register"}>
                     <Text style={styles.signUpLinkText}>Sign Up Now</Text>
                   </Link>
                 </View>
