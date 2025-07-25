@@ -16,7 +16,7 @@ import {
   View,
 } from "react-native";
 
-const backgroundImage = require("../../assets/images/posters/poster4.png");
+const backgroundImage = require("../../assets/images/auth-background.png");
 interface LoginRegisterCardProps {
   authCardName?: string;
   isLoginCard?: boolean;
@@ -63,9 +63,8 @@ const LoginRegisterCard: React.FC<LoginRegisterCardProps> = ({
             }}
             validationSchema={authValidationSchema}
             onSubmit={(values) => {
-              // Here you can add validation or API call logic
+              // TODO_API: I can add validation or API call logic
               console.log(`Submitted: ${values.email}, ${values.password}`);
-              // Call the auth callback to proceed to the next screen
               onAuthButtonPress();
             }}
           >
@@ -179,7 +178,7 @@ const styles = StyleSheet.create({
   overlay: {
     paddingTop: 70,
     flex: 1,
-    backgroundColor: "rgba(0, 0, 0, 0.75)",
+    backgroundColor: "rgba(0, 0, 0, 0.7)",
   },
   container: {
     flex: 1,
@@ -197,7 +196,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.8,
     shadowRadius: 20,
-    elevation: 15, // For Android shadow
+    elevation: 15,
     borderWidth: 1,
     borderColor: "rgba(255, 255, 255, 0.1)",
   },
