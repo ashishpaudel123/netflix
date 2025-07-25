@@ -26,32 +26,28 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (loaded) {
-      // Show splash screen for 4 seconds, then hide it
       const timer = setTimeout(() => {
         setShowSplash(false);
-      }, 4000);
+      }, 3000);
 
       return () => clearTimeout(timer);
     }
   }, [loaded]);
 
-  // Handle navigation based on authentication state
+  // Handling navigation based on authentication state
   useEffect(() => {
     if (!loaded || showSplash) return;
 
     const inAuthGroup = segments[0] === "(auth)";
 
     if (!isLoggedIn && !inAuthGroup) {
-      // Redirect to login if not authenticated and not in auth group
       router.replace("/(auth)/login");
     } else if (isLoggedIn && inAuthGroup) {
-      // Redirect to home if authenticated and in auth group
       router.replace("/(tabs)");
     }
   }, [isLoggedIn, segments, loaded, showSplash]);
 
   if (!loaded) {
-    // Async font loading only occurs in development.
     return null;
   }
 
