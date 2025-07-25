@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 import LoginRegisterCard from '@/components/LoginRegisterCard';
+import { router } from 'expo-router';
 import { useContext } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AuthContext from '../Context/AuthContext';
@@ -10,7 +11,7 @@ export default function Login() {
 
   return (
     <SafeAreaView edges={["left", "top", "right"]} style={{ flex: 1, backgroundColor: '#000' }}>
-      <LoginRegisterCard onAuthButtonPress={() => setIsLoggedIn(true)} />
+      <LoginRegisterCard newOrAlreadyUserButtonPress={() => {router.push("/(auth)/register")}} onAuthButtonPress={() => setIsLoggedIn(true)} />
     </SafeAreaView>
   );
 }

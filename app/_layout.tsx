@@ -63,10 +63,12 @@ export default function RootLayout() {
     <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="(auth)/login" />
+          <Stack.Screen 
+          name="(auth)/login"
+          options={{ animation: "slide_from_left"}} />
           <Stack.Screen
             name="(auth)/register"
-            options={{ animation: "fade_from_bottom" }}
+            options={{ animation: "ios_from_right" }}
           />
           <Stack.Screen name="(tabs)" />
           <Stack.Screen

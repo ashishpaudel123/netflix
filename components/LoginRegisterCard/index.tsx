@@ -19,11 +19,14 @@ import {
 const backgroundImage = require("../../assets/images/posters/poster4.png");
 interface LoginRegisterCardProps {
   authCardName?: string;
+  isLoginCard?: boolean;
   authButtonName?: string;
   onAuthButtonPress: () => void;
   firstPlaceholderText?: string;
   secondPlaceholderText?: string;
   newOrAlreadyUserText?: string;
+  newOrAlreadyUserButtonName?: string;
+  newOrAlreadyUserButtonPress: () => void;
   secondButtonName?: string;
   checkBoxName?: string;
   forgetPasswordText?: string;
@@ -32,11 +35,14 @@ interface LoginRegisterCardProps {
 
 const LoginRegisterCard: React.FC<LoginRegisterCardProps> = ({
   authCardName = "Sign In",
+  isLoginCard = true,
   authButtonName = "Sign In",
   onAuthButtonPress,
   firstPlaceholderText = "Email or phone number",
   secondPlaceholderText = "Password",
   newOrAlreadyUserText = "New to Netflix?",
+  newOrAlreadyUserButtonName = "Sign Up Now",
+  newOrAlreadyUserButtonPress = () => {},
   secondButtonName = "Use a Sign-In Code",
   checkBoxName = "Remember me",
   forgetPasswordText = "Forgot Password?",
@@ -138,18 +144,22 @@ const LoginRegisterCard: React.FC<LoginRegisterCardProps> = ({
                     </Text>
                   </Link>
                 )}
-                <View style={styles.checkboxContainer}>
-                  <Checkbox />
-                  <Text style={styles.checkboxText}>{checkBoxName}</Text>
-                </View>
+                {isLoginCard && (
+                  <View style={styles.checkboxContainer}>
+                    <Checkbox />
+                    <Text style={styles.checkboxText}>{checkBoxName}</Text>
+                  </View>
+                )}
 
                 <View style={styles.signUpContainer}>
                   <Text style={styles.signUpPromptText}>
                     {newOrAlreadyUserText}
                   </Text>
-                  <Link href={"/(auth)/register"}>
-                    <Text style={styles.signUpLinkText}>Sign Up Now</Text>
-                  </Link>
+                  <TouchableOpacity onPress={newOrAlreadyUserButtonPress}>
+                    <Text style={styles.signUpLinkText}>
+                      {newOrAlreadyUserButtonName}
+                    </Text>
+                  </TouchableOpacity>
                 </View>
               </View>
             )}
