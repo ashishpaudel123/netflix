@@ -38,7 +38,7 @@ const LoginRegisterCard: React.FC<LoginRegisterCardProps> = ({
   isLoginCard = true,
   authButtonName = "Sign In",
   onAuthButtonPress,
-  firstPlaceholderText = "Email or phone number",
+  firstPlaceholderText = "Email",
   secondPlaceholderText = "Password",
   newOrAlreadyUserText = "New to Netflix?",
   newOrAlreadyUserButtonName = "Sign Up Now",
