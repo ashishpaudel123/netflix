@@ -114,13 +114,13 @@ export default function HomeScreen() {
             style={styles.searchInput}
           />
         </View>
-        <View style={styles.logoContainer}>
+        <TouchableOpacity onPress={() => {router.push("/profile")}} style={styles.logoContainer}>
           <Image
             source={require("@/assets/images/profileIcon.png")}
             style={styles.profileIcon}
             resizeMode="contain"
           />
-        </View>
+        </TouchableOpacity>
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.featuredContainer}>
