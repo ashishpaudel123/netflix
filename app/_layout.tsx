@@ -47,6 +47,7 @@ export default function RootLayout() {
           }}
         />
         <Stack.Screen name='playvideo' options={{ headerShown: false, animation: 'slide_from_bottom' }} />
+        <Stack.Screen name='register' options={{ headerShown: false, animation: 'fade_from_bottom' }} />
         <Stack.Screen name="+not-found" />
       </Stack>
       <StatusBar style="auto" />
