@@ -1,30 +1,45 @@
-import { StyleSheet } from 'react-native';
+import { Alert, StyleSheet } from "react-native";
 
-import LoginRegisterCard from '@/components/LoginRegisterCard';
-import { router } from 'expo-router';
-import { useContext } from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import AuthContext from '../Context/AuthContext';
+import LoginRegisterCard from "@/components/LoginRegisterCard";
+import { router } from "expo-router";
+import { useContext } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import AuthContext from "../Context/AuthContext";
 
 export default function Login() {
-    const { setIsLoggedIn } = useContext(AuthContext);
+  const { setIsLoggedIn } = useContext(AuthContext);
+  const showAlert = () => {
+    Alert.alert("Login Successful!", "Welcome to Netflix!");
+  };
+  const handleLogin = () => {
+    showAlert();
+    setIsLoggedIn(true);
+  };
 
   return (
-    <SafeAreaView edges={["left", "top", "right"]} style={{ flex: 1, backgroundColor: '#000' }}>
-      <LoginRegisterCard newOrAlreadyUserButtonPress={() => {router.push("/(auth)/register")}} onAuthButtonPress={() => setIsLoggedIn(true)} />
+    <SafeAreaView
+      edges={["left", "top", "right"]}
+      style={{ flex: 1, backgroundColor: "#000" }}
+    >
+      <LoginRegisterCard
+        newOrAlreadyUserButtonPress={() => {
+          router.push("/(auth)/register");
+        }}
+        onAuthButtonPress={handleLogin}
+      />
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   headerImage: {
-    color: '#808080',
+    color: "#808080",
     bottom: -90,
     left: -35,
-    position: 'absolute',
+    position: "absolute",
   },
   titleContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 8,
   },
 });
