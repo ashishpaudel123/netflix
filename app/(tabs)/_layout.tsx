@@ -1,6 +1,6 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { Image, Platform } from 'react-native';
+import { Image, Platform, View } from 'react-native';
 
 import { HapticTab } from '@/components/HapticTab';
 import { IconSymbol } from '@/components/ui/IconSymbol';
@@ -14,11 +14,11 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors.brand.primary[400],
-        tabBarInactiveTintColor: Colors.brand.secondary[colorScheme === 'dark' ? '600' : '400'],
+        tabBarInactiveTintColor: Colors.brand.secondary[colorScheme === 'dark' ? '100' : '400'],
         headerShown: false,
         tabBarButton: HapticTab,
         tabBarBackground: () => (
-          <Image
+          <View
             style={{
               flex: 1,
               backgroundColor: Colors.brand.secondary[colorScheme === 'dark' ? '900' : '600'],
@@ -41,7 +41,7 @@ export default function TabLayout() {
             borderTopWidth: 0,
             elevation: 0,
             shadowOpacity: 0,
-            backgroundColor: Colors.brand.secondary,
+            backgroundColor: Colors.brand.secondary[colorScheme === 'dark' ? '900' : '100'],
           },
         }),
       }}>
@@ -66,7 +66,7 @@ export default function TabLayout() {
           tabBarIcon: () => (
             <Image
               source={require('@/assets/images/netflixIcon.png')}
-              style={{ width: 35, height: 45, tintColor: "red" , marginTop: -20 }}
+              style={{ width: 35, height: 35, tintColor: "#7a040b", marginTop: 10}}
               accessibilityLabel="Netflix"
             />
           ),
