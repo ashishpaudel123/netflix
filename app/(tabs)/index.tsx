@@ -1,5 +1,5 @@
 import { Colors } from "@/constants/Colors";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import React from "react";
 import {
   Dimensions,
@@ -100,24 +100,171 @@ const categories = [
   {
     title: "Trending Now",
     items: [
-      { id: 4, poster: require("@/assets/images/posters/poster1.png") },
-      { id: 5, poster: require("@/assets/images/posters/poster2.png") },
-      { id: 6, poster: require("@/assets/images/posters/poster3.png") },
-      { id: 7, poster: require("@/assets/images/posters/poster4.png") },
+      {
+        id: 4,
+        title: "The Silent City",
+        subtitle: "Season 1",
+        description: `In a world silenced by an unknown catastrophe, one survivor roams a desolate urban landscape seeking answers and hope. "The Silent City" is a gripping, visually haunting tale of isolation, memory, and survival.
+
+As echoes of the past whisper through the empty streets, the survivor must confront inner demons and uncover the truth buried beneath the silence.`,
+        cast: "Noah Wyle, Rosario Dawson, Benedict Wong",
+        year: 2021,
+        duration: "1h 50m",
+        rating: "TV-14",
+        category: "Sci-Fi • Mystery • Drama",
+        poster: require("@/assets/images/posters/poster1.png"),
+        videoSource: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+        subtitles: [
+          { language: "English", uri: null },
+          { language: "Spanish", uri: null },
+        ],
+      },
+      {
+        id: 5,
+        title: "Echoes of War",
+        subtitle: "Limited Series",
+        description: `Amidst the chaos of war, a group of strangers is forced to unite for survival. "Echoes of War" explores the human cost of conflict through powerful storytelling, stunning visuals, and unforgettable performances.
+
+As old secrets resurface and loyalties are tested, each character must face the echoes of their past decisions.`,
+        cast: "Cillian Murphy, Jessica Chastain, Idris Elba",
+        year: 2020,
+        duration: "2h 10m",
+        rating: "TV-MA",
+        category: "War • Political • Thriller",
+        poster: require("@/assets/images/posters/poster2.png"),
+        videoSource: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
+        subtitles: [
+          { language: "English", uri: null },
+          { language: "French", uri: null },
+        ],
+      },
+      {
+        id: 6,
+        title: "Digital Shadows",
+        subtitle: "Part 2",
+        description: `Inside the hidden corners of the internet, a team of elite hackers battles corporate corruption and digital surveillance. "Digital Shadows" takes you deep into a world where one keystroke can change everything.
+
+With rapid twists, high-tech espionage, and complex characters, this techno-thriller keeps you guessing until the final byte.`,
+        cast: "Rami Malek, Mackenzie Davis, Riz Ahmed",
+        year: 2023,
+        duration: "2h 00m",
+        rating: "TV-MA",
+        category: "Tech • Action • Thriller",
+        poster: require("@/assets/images/posters/poster3.png"),
+        videoSource: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
+        subtitles: [
+          { language: "English", uri: null },
+          { language: "German", uri: null },
+        ],
+      },
+      {
+        id: 7,
+        title: "Lost Legacy",
+        subtitle: "Volume I",
+        description: `An archaeologist’s discovery of an ancient artifact sets off a globe-trotting race against secret societies and mercenaries. "Lost Legacy" blends myth and mystery in an epic journey through history.
+
+As legends come alive and puzzles unfold, the fight for truth could change everything we know about the past.`,
+        cast: "Tom Holland, Alicia Vikander, Pedro Pascal",
+        year: 2019,
+        duration: "2h 15m",
+        rating: "TV-14",
+        category: "Adventure • Mystery • History",
+        poster: require("@/assets/images/posters/poster4.png"),
+        videoSource: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+        subtitles: [
+          { language: "English", uri: null },
+          { language: "Italian", uri: null },
+        ],
+      },
     ],
   },
   {
     title: "Top Picks for You",
     items: [
-      { id: 7, poster: require("@/assets/images/posters/poster5.png") },
-      { id: 8, poster: require("@/assets/images/posters/poster6.png") },
-      { id: 9, poster: require("@/assets/images/posters/poster7.png") },
-      { id: 10, poster: require("@/assets/images/posters/poster8.png") },
+      {
+        id: 7,
+        title: "Lost Legacy",
+        subtitle: "Volume I",
+        description: `An archaeologist’s discovery of an ancient artifact sets off a globe-trotting race against secret societies and mercenaries. "Lost Legacy" blends myth and mystery in an epic journey through history.
+
+As legends come alive and puzzles unfold, the fight for truth could change everything we know about the past.`,
+        cast: "Tom Holland, Alicia Vikander, Pedro Pascal",
+        year: 2019,
+        duration: "2h 15m",
+        rating: "TV-14",
+        category: "Adventure • Mystery • History",
+        poster: require("@/assets/images/posters/poster5.png"),
+        videoSource: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+        subtitles: [
+          { language: "English", uri: null },
+          { language: "Italian", uri: null },
+        ],
+      },
+      {
+        id: 8,
+        title: "Neon Pulse",
+        subtitle: "Season 3",
+        description: `In a hyper-stylized future city fueled by rebellion and rhythm, a DJ becomes the voice of an underground movement. "Neon Pulse" is an electrifying journey through beats, betrayal, and burning neon streets.
+
+Fast-paced, gritty, and full of sound and fury, this show captures a revolution powered by music.`,
+        cast: "Zendaya, Timothée Chalamet, Ken Watanabe",
+        year: 2022,
+        duration: "1h 50m",
+        rating: "TV-MA",
+        category: "Cyberpunk • Music • Thriller",
+        poster: require("@/assets/images/posters/poster6.png"),
+        videoSource: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
+        subtitles: [
+          { language: "English", uri: null },
+          { language: "Korean", uri: null },
+        ],
+      },
+      {
+        id: 9,
+        title: "Crimson Tide",
+        subtitle: "Final Mission",
+        description: `Onboard a nuclear submarine, tensions escalate as a crew faces a mutiny over a suspected missile launch. "Crimson Tide" is a deep-sea thriller that challenges authority, duty, and moral decisions under pressure.
+
+Intense and claustrophobic, the film explores leadership in crisis and the balance between trust and command.`,
+        cast: "Denzel Washington, Gene Hackman, Viggo Mortensen",
+        year: 2018,
+        duration: "1h 55m",
+        rating: "TV-MA",
+        category: "Action • Drama • Thriller",
+        poster: require("@/assets/images/posters/poster7.png"),
+        videoSource: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4",
+        subtitles: [
+          { language: "English", uri: null },
+          { language: "Russian", uri: null },
+        ],
+      },
+      {
+        id: 10,
+        title: "Parallel Minds",
+        subtitle: "Chapter One",
+        description: `A groundbreaking AI contact lens capable of recording memories is at the center of a dangerous experiment. When its creator is murdered, a detective and researcher uncover a conspiracy that threatens reality itself.
+
+"Parallel Minds" fuses sci-fi and noir, asking: what happens when your memories are no longer your own?`,
+        cast: "Tommie-Amber Pirie, Greg Bryk, Neil Napier",
+        year: 2021,
+        duration: "1h 42m",
+        rating: "TV-14",
+        category: "Sci-Fi • Mystery • Thriller",
+        poster: require("@/assets/images/posters/poster8.png"),
+        videoSource: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4",
+        subtitles: [
+          { language: "English", uri: null },
+          { language: "Japanese", uri: null },
+        ],
+      },
     ],
   },
 ];
 
+
 export default function HomeScreen() {
+  const params = useLocalSearchParams();
+
   const router = useRouter();
   return (
     <SafeAreaView style={styles.container}>
@@ -208,6 +355,22 @@ export default function HomeScreen() {
                     </TouchableOpacity>
                     <TouchableOpacity
                       style={[styles.heroActionBtn, styles.playBtn]}
+                      onPress={() => {
+                        router.push({
+                          pathname: "/playvideo",
+                          params: {
+                            videoSource: item.videoSource,
+                            title: item.title,
+                            description: item.description,
+                            subtitle: item.subtitle,
+                            year: item.year,
+                            duration: item.duration,
+                            rating: item.rating,
+                            category: item.category,
+                            cast: item.cast,
+                          },
+                        });
+                      }}
                     >
                       <Text style={styles.playBtnText}>▶ Play</Text>
                     </TouchableOpacity>
@@ -230,9 +393,19 @@ export default function HomeScreen() {
                     router.push({
                       pathname: "/carddetails",
                       params: {
-                        title: category.title,
+                        title: item.title,
                         poster: item.poster,
-                        description: "Description for this card",
+                        description: item.description,
+                        subtitle: item.subtitle,
+                        year: item.year,
+                        duration: item.duration,
+                        cast: item.cast,
+                        rating: item.rating,
+                        category: item.category,
+                        videoSource: item.videoSource,
+                        subtitles: item.subtitles?.map((sub) => {
+                          return { language: sub?.language, uri: sub?.uri };
+                        })
                       },
                     })
                   }
