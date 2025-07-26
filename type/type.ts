@@ -1,6 +1,13 @@
 export interface VideoPlayerScreenProps {
   videoSource: string;
   title?: string;
+  description?: string;
+  subtitle?: string;
+  year?: number | string;
+  duration?: string;
+  cast?: string;
+  rating?: string;
+  category?: string;
 };
 
 export interface MovieProps {
