@@ -1,55 +1,125 @@
 import { Colors } from "@/constants/Colors";
 import { VideoPlayerScreenProps } from "@/type/type";
+import { Ionicons } from "@expo/vector-icons";
 import { useEvent } from "expo";
+import { router } from "expo-router";
 import { useVideoPlayer, VideoView } from "expo-video";
+import React, { useState } from "react";
 import {
   Dimensions,
+  ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import GoBackButton from "./GoBackButton";
+
 export const defaultVideoSource =
   "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
 
 export default function VideoPlayerScreen({
   videoSource,
-  title = "Video Player",
+  title,
+  description,
+  subtitle,
+  year,
+  duration,
+  cast,
+  rating,
+  category,
 }: VideoPlayerScreenProps) {
   return (
     <SafeAreaView
       edges={["top"]}
-      style={{ flex: 1, backgroundColor: "#181818" }}
+      style={styles.container}
     >
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          position: "absolute",
-          top: 0,
-        }}
-      >
-        <Text
-          style={{
-            color: "white",
-            fontSize: 20,
-            marginLeft: 58,
-            position: "absolute",
-            top: 4,
-          }}
-        >
-          {title}
-        </Text>
-        <GoBackButton style={{ position: "absolute", top: 0, left: 15 }} />
+      <StatusBar barStyle="light-content" backgroundColor="#000" />
+      
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => {router.back()}} style={styles.backButton}>
+          <Ionicons name="arrow-back" size={24} color="white" />
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}>{title}</Text>
       </View>
-      <VideoScreen videoSource={videoSource} />
+
+      <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false}>
+        {/* Video Player */}
+        <VideoScreen videoSource={videoSource} />
+        
+        {/* Movie Information */}
+        <View style={styles.movieInfo}>
+          <View style={styles.titleSection}>
+            <Text style={styles.movieTitle}>{title}</Text>
+            {year && (
+              <Text style={styles.movieYear}>{year}</Text>
+            )}
+          </View>
+
+          {subtitle && (
+            <Text style={styles.subtitle}>{subtitle}</Text>
+          )}
+
+          <View style={styles.metaInfo}>
+            {category && (
+              <View style={styles.matchBadge}>
+                <Text style={styles.matchText}>{category}</Text>
+              </View>
+            )}
+            {rating && (
+              <Text style={styles.rating}>{rating}</Text>
+            )}
+            {duration && (
+              <Text style={styles.duration}>{duration}</Text>
+            )}
+          </View>
+
+          <View style={styles.actionButtons}>
+            <TouchableOpacity style={styles.playButton}>
+              <Ionicons name="play" size={20} color="black" />
+              <Text style={styles.playButtonText}>Play</Text>
+            </TouchableOpacity>
+            
+            <TouchableOpacity style={styles.downloadButton}>
+              <Ionicons name="download-outline" size={24} color="white" />
+              <Text style={styles.actionButtonText}>Download</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.actionButton}>
+              <Ionicons name="add-outline" size={24} color="white" />
+              <Text style={styles.actionButtonText}>My List</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.actionButton}>
+              <Ionicons name="thumbs-up-outline" size={24} color="white" />
+              <Text style={styles.actionButtonText}>Rate</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.actionButton}>
+              <Ionicons name="share-outline" size={24} color="white" />
+              <Text style={styles.actionButtonText}>Share</Text>
+            </TouchableOpacity>
+          </View>
+
+          {description && (
+            <Text style={styles.description}>{description}</Text>
+          )}
+
+          {cast && (
+            <View style={styles.castSection}>
+              <Text style={styles.castLabel}>Cast: </Text>
+              <Text style={styles.castText}>{cast}</Text>
+            </View>
+          )}
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
 
 function VideoScreen({ videoSource }: VideoPlayerScreenProps) {
+  const [showControls, setShowControls] = useState(false);
   const player = useVideoPlayer(
     videoSource ? videoSource : defaultVideoSource,
     (player) => {
@@ -63,32 +133,199 @@ function VideoScreen({ videoSource }: VideoPlayerScreenProps) {
   });
 
   return (
-    <View style={styles.contentContainer}>
-      <VideoView
-        style={styles.video}
-        player={player}
-        allowsFullscreen
-        allowsPictureInPicture
-      />
-      <TouchableOpacity
-        style={styles.playPauseBtn}
-        onPress={() => {
-          if (isPlaying) {
-            player.pause();
-          } else {
-            player.play();
-          }
-        }}
+    <View style={styles.videoContainer}>
+      <TouchableOpacity 
+        style={styles.videoWrapper}
+        onPress={() => setShowControls(!showControls)}
+        activeOpacity={1}
       >
-        <Text style={styles.playPauseBtnText}>
-          {isPlaying ? "Pause" : "Play"}
-        </Text>
+        <VideoView
+          style={styles.video}
+          player={player}
+          allowsFullscreen
+          allowsPictureInPicture
+          startsPictureInPictureAutomatically
+        />
       </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.brand.secondary[700],
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    backgroundColor: "rgba(0,0,0,0.8)",
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 10,
+  },
+  backButton: {
+    padding: 8,
+    marginRight: 16,
+  },
+  headerTitle: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "600",
+    flex: 1,
+  },
+  scrollContainer: {
+    flex: 1,
+  },
+  videoContainer: {
+    width: "100%",
+    height: 220,
+    backgroundColor: "black",
+    position: "relative",
+  },
+  videoWrapper: {
+    width: "100%",
+    height: "100%",
+  },
+  video: {
+    width: "100%",
+    height: "100%",
+  },
+  videoControlsOverlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0,0,0,0.3)",
+  },
+  centerPlayButton: {
+    backgroundColor: "rgba(0,0,0,0.6)",
+    borderRadius: 50,
+    padding: 20,
+  },
+  movieInfo: {
+    padding: 16,
+    paddingTop: 24,
+  },
+  titleSection: {
+    marginBottom: 8,
+  },
+  movieTitle: {
+    color: "white",
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 4,
+  },
+  movieYear: {
+    color: Colors.brand.secondary[300],
+    fontSize: 16,
+  },
+  subtitle: {
+    color: Colors.brand.secondary[300],
+    fontSize: 14,
+    marginBottom: 12,
+  },
+  metaInfo: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 20,
+    flexWrap: "wrap",
+  },
+  matchBadge: {
+    backgroundColor: Colors.brand.primary[500],
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 4,
+    marginRight: 12,
+    marginBottom: 8,
+  },
+  matchText: {
+    color: "white",
+    fontSize: 12,
+    fontWeight: "bold",
+  },
+  rating: {
+    color: Colors.brand.secondary[300],
+    fontSize: 14,
+    marginRight: 12,
+    marginBottom: 8,
+    borderWidth: 1,
+    borderColor: Colors.brand.secondary[300],
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+  },
+  duration: {
+    color: Colors.brand.secondary[300],
+    fontSize: 14,
+    marginBottom: 8,
+  },
+  actionButtons: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginBottom: 24,
+    paddingHorizontal: 8,
+  },
+  playButton: {
+    backgroundColor: "white",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 6,
+    flex: 1,
+    marginRight: 12,
+  },
+  playButtonText: {
+    color: "black",
+    fontSize: 16,
+    fontWeight: "bold",
+    marginLeft: 8,
+  },
+  downloadButton: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+  },
+  actionButton: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+  },
+  actionButtonText: {
+    color: Colors.brand.secondary[300],
+    fontSize: 12,
+    marginTop: 4,
+    textAlign: "center",
+  },
+  description: {
+    color: "white",
+    fontSize: 14,
+    lineHeight: 20,
+    marginBottom: 16,
+  },
+  castSection: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  castLabel: {
+    color: Colors.brand.secondary[300],
+    fontSize: 14,
+  },
+  castText: {
+    color: "white",
+    fontSize: 14,
+    flex: 1,
+  },
   playPauseBtn: {
     backgroundColor: Colors.brand.primary[500],
     paddingVertical: 12,
@@ -114,10 +351,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-  },
-  video: {
-    width: Dimensions.get("window").width - 20,
-    height: 275,
   },
   controlsContainer: {
     paddingVertical: 7,
