@@ -16,31 +16,47 @@ import { SafeAreaView } from "react-native-safe-area-context";
 const featured = [
   {
     id: 1,
-    title: "Stranger Things",
-    subtitle: "Season 4",
-    description:
-      "A thrilling series about a group of kids in the 80s who encounter supernatural events.",
-    poster: require("@/assets/images/posters/hero1.png"),
+    title: "Money Heist",
+    subtitle: "Part 5",
+    description: `In Money Heist, an enigmatic criminal mastermind known only as The Professor assembles a team of eight specialists with unique skills—and nothing to lose—for the most ambitious robbery in history: infiltrate the Royal Mint of Spain and print billions of euros. Disguised in red jumpsuits and Salvador Dalí masks, the crew must contend with elite police forces, internal power struggles, and their own turbulent pasts, all while trying to stay one step ahead of the law.
+
+But what starts as a simple heist quickly spirals into something far more powerful. As the story unfolds, Money Heist transforms into a global movement of resistance and rebellion, exploring themes of identity, justice, love, sacrifice, and revolution. The characters—Tokyo, Berlin, Nairobi, Denver, Rio, Helsinki, Moscow, and more—become unlikely heroes, drawing public sympathy and sparking chaos across Spain.
+
+With high-stakes tension, explosive twists, and emotional depth, Money Heist blends sharp storytelling, intense action, and deep character arcs to create one of the most popular and critically acclaimed international series of the decade.
+
+Whether you're here for the romance, the politics, the thrill of the heist—or the sound of "Bella Ciao" echoing through a crowd—Money Heist is a heart-racing rollercoaster that will leave you breathless, episode after episode.
+`,
+    cast: "Álvaro Morte, Úrsula Corberó, Itziar Ituño",
+    year: 2022,
+    duration: "2h 30m",
+    rating: "TV-MA",
+    category: "Crime • Thriller • Drama ",
+    poster: require("@/assets/images/posters/money-heist.jpg"),
     videoSource:
-      "https://ik.imagekit.io/ashishpaudel/netflix/video.webm/ik-video.mp4?updatedAt=1753162508413",
+      "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     subtitles: [
       {
         language: "English",
-        uri: "https://ik.imagekit.io/ashishpaudel/netflix/subtitles/english.vtt",
+        uri: null,
       },
       {
         language: "Hindi",
-        uri: "https://ik.imagekit.io/ashishpaudel/netflix/subtitles/hindi.vtt",
+        uri: null,
       },
     ],
   },
   {
     id: 2,
-    title: "Money Heist",
-    subtitle: "Part 5",
+    title: "Squid Game",
+    subtitle: "Season 1",
     description:
-      "A group of robbers plan the biggest heist in recorded history.",
-    poster: require("@/assets/images/posters/hero1.png"),
+      "A deadly game where contestants risk their lives for a cash prize.",
+    cast: "Lee Jung-jae, Park Hae-soo, Wi Ha-jun",
+    year: 2021,
+    duration: "1h 45m",
+    rating: "TV-MA",
+    category: "Drama • Thriller • Mystery",
+    poster: require("@/assets/images/posters/squid-game.jpg"),
     videoSource: null,
     subtitles: [
       {
@@ -55,20 +71,26 @@ const featured = [
   },
   {
     id: 3,
-    title: "Squid Game",
-    subtitle: "Season 1",
+    title: "Stranger Things",
+    subtitle: "Season 4",
     description:
-      "A deadly game where contestants risk their lives for a cash prize.",
+      "A thrilling series about a group of kids in the 80s who encounter supernatural events.",
     poster: require("@/assets/images/posters/hero1.png"),
-    videoSource: null,
+    cast: "Millie Bobby Brown, Finn Wolfhard, Winona Ryder",
+    year: 2022,
+    duration: "2h 15m",
+    rating: "TV-14",
+    category: "Sci-Fi • Horror • Drama",
+    videoSource:
+      "https://ik.imagekit.io/ashishpaudel/netflix/video.webm/ik-video.mp4?updatedAt=1753162508413",
     subtitles: [
       {
         language: "English",
-        uri: null,
+        uri: "https://ik.imagekit.io/ashishpaudel/netflix/subtitles/english.vtt",
       },
       {
         language: "Hindi",
-        uri: null,
+        uri: "https://ik.imagekit.io/ashishpaudel/netflix/subtitles/hindi.vtt",
       },
     ],
   },
@@ -114,7 +136,12 @@ export default function HomeScreen() {
             style={styles.searchInput}
           />
         </View>
-        <TouchableOpacity onPress={() => {router.push("/profile")}} style={styles.logoContainer}>
+        <TouchableOpacity
+          onPress={() => {
+            router.push("/profile");
+          }}
+          style={styles.logoContainer}
+        >
           <Image
             source={require("@/assets/images/profileIcon.png")}
             style={styles.profileIcon}
@@ -127,19 +154,25 @@ export default function HomeScreen() {
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {featured.map((item, idx) => (
               <TouchableOpacity
+                key={idx}
                 onPress={() => {
                   router.push({
                     pathname: "/carddetails",
                     params: {
                       id: item.id,
                       title: item.title,
+                      poster: item.poster,
+                      description: item.description,
+                      videoSource: item.videoSource,
                       subtitle: item.subtitle,
+                      cast: item.cast,
+                      year: item.year,
+                      duration: item.duration,
+                      rating: item.rating,
+                      category: item.category,
                       subtitles: item.subtitles?.map((sub) => {
                         return { language: sub?.language, uri: sub?.uri };
                       }),
-                      poster: item.poster,
-                      description: "Description for this card",
-                      videoSource: item.videoSource,
                     },
                   });
                   console.log(
@@ -149,7 +182,11 @@ export default function HomeScreen() {
                     "title:",
                     item.title,
                     "videoSource:",
-                    item.videoSource
+                    item.videoSource,
+                    "year:",
+                    item.year,
+                    "duration:",
+                    item.duration
                   );
                 }}
                 key={item.id}
@@ -305,14 +342,14 @@ const styles = StyleSheet.create({
     width: width * 0.92,
     height: 400,
     marginRight: 16,
-    borderRadius: 12,
+    borderRadius: 6,
     overflow: "hidden",
     backgroundColor: Colors.brand.secondary[900],
   },
   featuredPoster: {
     width: "100%",
     height: "100%",
-    borderRadius: 12,
+    borderRadius: 6,
   },
   featuredOverlay: {
     position: "absolute",
