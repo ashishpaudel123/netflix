@@ -144,7 +144,7 @@ As old secrets resurface and loyalties are tested, each character must face the 
         subtitle: "Part 2",
         description: `Inside the hidden corners of the internet, a team of elite hackers battles corporate corruption and digital surveillance. "Digital Shadows" takes you deep into a world where one keystroke can change everything.
 
-With rapid twists, high-tech espionage, and complex characters, this techno-thriller keeps you guessing until the final byte.`,
+        With rapid twists, high-tech espionage, and complex characters, this techno-thriller keeps you guessing until the final byte.`,
         cast: "Rami Malek, Mackenzie Davis, Riz Ahmed",
         year: 2023,
         duration: "2h 00m",
@@ -163,7 +163,7 @@ With rapid twists, high-tech espionage, and complex characters, this techno-thri
         subtitle: "Volume I",
         description: `An archaeologist’s discovery of an ancient artifact sets off a globe-trotting race against secret societies and mercenaries. "Lost Legacy" blends myth and mystery in an epic journey through history.
 
-As legends come alive and puzzles unfold, the fight for truth could change everything we know about the past.`,
+        As legends come alive and puzzles unfold, the fight for truth could change everything we know about the past.`,
         cast: "Tom Holland, Alicia Vikander, Pedro Pascal",
         year: 2019,
         duration: "2h 15m",
@@ -187,7 +187,7 @@ As legends come alive and puzzles unfold, the fight for truth could change every
         subtitle: "Volume I",
         description: `An archaeologist’s discovery of an ancient artifact sets off a globe-trotting race against secret societies and mercenaries. "Lost Legacy" blends myth and mystery in an epic journey through history.
 
-As legends come alive and puzzles unfold, the fight for truth could change everything we know about the past.`,
+        As legends come alive and puzzles unfold, the fight for truth could change everything we know about the past.`,
         cast: "Tom Holland, Alicia Vikander, Pedro Pascal",
         year: 2019,
         duration: "2h 15m",
@@ -206,7 +206,7 @@ As legends come alive and puzzles unfold, the fight for truth could change every
         subtitle: "Season 3",
         description: `In a hyper-stylized future city fueled by rebellion and rhythm, a DJ becomes the voice of an underground movement. "Neon Pulse" is an electrifying journey through beats, betrayal, and burning neon streets.
 
-Fast-paced, gritty, and full of sound and fury, this show captures a revolution powered by music.`,
+        Fast-paced, gritty, and full of sound and fury, this show captures a revolution powered by music.`,
         cast: "Zendaya, Timothée Chalamet, Ken Watanabe",
         year: 2022,
         duration: "1h 50m",
@@ -225,7 +225,7 @@ Fast-paced, gritty, and full of sound and fury, this show captures a revolution 
         subtitle: "Final Mission",
         description: `Onboard a nuclear submarine, tensions escalate as a crew faces a mutiny over a suspected missile launch. "Crimson Tide" is a deep-sea thriller that challenges authority, duty, and moral decisions under pressure.
 
-Intense and claustrophobic, the film explores leadership in crisis and the balance between trust and command.`,
+        Intense and claustrophobic, the film explores leadership in crisis and the balance between trust and command.`,
         cast: "Denzel Washington, Gene Hackman, Viggo Mortensen",
         year: 2018,
         duration: "1h 55m",
@@ -244,7 +244,7 @@ Intense and claustrophobic, the film explores leadership in crisis and the balan
         subtitle: "Chapter One",
         description: `A groundbreaking AI contact lens capable of recording memories is at the center of a dangerous experiment. When its creator is murdered, a detective and researcher uncover a conspiracy that threatens reality itself.
 
-"Parallel Minds" fuses sci-fi and noir, asking: what happens when your memories are no longer your own?`,
+        "Parallel Minds" fuses sci-fi and noir, asking: what happens when your memories are no longer your own?`,
         cast: "Tommie-Amber Pirie, Greg Bryk, Neil Napier",
         year: 2021,
         duration: "1h 42m",
@@ -336,7 +336,6 @@ export default function HomeScreen() {
                     item.duration
                   );
                 }}
-                key={item.id}
                 style={styles.featuredPosterWrapper}
               >
                 <Image
