@@ -20,11 +20,11 @@ const featured = [
     subtitle: "Part 5",
     description: `In Money Heist, an enigmatic criminal mastermind known only as The Professor assembles a team of eight specialists with unique skills—and nothing to lose—for the most ambitious robbery in history: infiltrate the Royal Mint of Spain and print billions of euros. Disguised in red jumpsuits and Salvador Dalí masks, the crew must contend with elite police forces, internal power struggles, and their own turbulent pasts, all while trying to stay one step ahead of the law.
 
-But what starts as a simple heist quickly spirals into something far more powerful. As the story unfolds, Money Heist transforms into a global movement of resistance and rebellion, exploring themes of identity, justice, love, sacrifice, and revolution. The characters—Tokyo, Berlin, Nairobi, Denver, Rio, Helsinki, Moscow, and more—become unlikely heroes, drawing public sympathy and sparking chaos across Spain.
+    But what starts as a simple heist quickly spirals into something far more powerful. As the story unfolds, Money Heist transforms into a global movement of resistance and rebellion, exploring themes of identity, justice, love, sacrifice, and revolution. The characters—Tokyo, Berlin, Nairobi, Denver, Rio, Helsinki, Moscow, and more—become unlikely heroes, drawing public sympathy and sparking chaos across Spain.
 
-With high-stakes tension, explosive twists, and emotional depth, Money Heist blends sharp storytelling, intense action, and deep character arcs to create one of the most popular and critically acclaimed international series of the decade.
+    With high-stakes tension, explosive twists, and emotional depth, Money Heist blends sharp storytelling, intense action, and deep character arcs to create one of the most popular and critically acclaimed international series of the decade.
 
-Whether you're here for the romance, the politics, the thrill of the heist—or the sound of "Bella Ciao" echoing through a crowd—Money Heist is a heart-racing rollercoaster that will leave you breathless, episode after episode.
+    Whether you're here for the romance, the politics, the thrill of the heist—or the sound of "Bella Ciao" echoing through a crowd—Money Heist is a heart-racing rollercoaster that will leave you breathless, episode after episode.
 `,
     cast: "Álvaro Morte, Úrsula Corberó, Itziar Ituño",
     year: 2022,
@@ -106,7 +106,7 @@ const categories = [
         subtitle: "Season 1",
         description: `In a world silenced by an unknown catastrophe, one survivor roams a desolate urban landscape seeking answers and hope. "The Silent City" is a gripping, visually haunting tale of isolation, memory, and survival.
 
-As echoes of the past whisper through the empty streets, the survivor must confront inner demons and uncover the truth buried beneath the silence.`,
+        As echoes of the past whisper through the empty streets, the survivor must confront inner demons and uncover the truth buried beneath the silence.`,
         cast: "Noah Wyle, Rosario Dawson, Benedict Wong",
         year: 2021,
         duration: "1h 50m",
@@ -125,7 +125,7 @@ As echoes of the past whisper through the empty streets, the survivor must confr
         subtitle: "Limited Series",
         description: `Amidst the chaos of war, a group of strangers is forced to unite for survival. "Echoes of War" explores the human cost of conflict through powerful storytelling, stunning visuals, and unforgettable performances.
 
-As old secrets resurface and loyalties are tested, each character must face the echoes of their past decisions.`,
+        As old secrets resurface and loyalties are tested, each character must face the echoes of their past decisions.`,
         cast: "Cillian Murphy, Jessica Chastain, Idris Elba",
         year: 2020,
         duration: "2h 10m",
