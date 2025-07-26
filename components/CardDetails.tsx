@@ -17,15 +17,15 @@ import GoBackButton from "./GoBackButton";
 
 export interface NetflixCardDetailsProps {
   id: number;
-  title?: string;
-  subtitle?: string;
-  poster?: any;
-  description?: string;
-  duration?: string;
-  year?: string;
+  title: string;
+  subtitle: string;
+  poster: any;
+  description: string;
+  duration: string;
+  year: number | string;
   rating?: string;
-  matchPercentage?: string;
-  cast?: string;
+  category?: string;
+  cast: string;
   onPlay?: () => void;
   onAddToList?: () => void;
   onRate?: () => void;
@@ -34,17 +34,17 @@ export interface NetflixCardDetailsProps {
 
 const NetflixCardDetails: React.FC<NetflixCardDetailsProps> = ({
   id = 1,
-  title = "BLACK MIRROR",
-  subtitle = "BANDERSNATCH",
+  title,
+  subtitle,
   poster = {
-    uri: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=600&fit=crop",
+    uri: require("@/assets/images/auth-background.png"),
   },
-  description = "In 1984, a young programmer begins to question reality as he adapts a dark fantasy novel into a video game. A mind-bending tale with multiple endings",
-  duration = "1h 30m",
-  year = "2018",
-  rating = "M18",
-  matchPercentage = "89% match",
-  cast = "Fionn Whitehead, Will Poulter, Craig Parkinson",
+  description,
+  duration,
+  year,
+  rating,
+  category,
+  cast,
   onPlay,
   onAddToList,
   onRate,
@@ -129,16 +129,15 @@ const NetflixCardDetails: React.FC<NetflixCardDetailsProps> = ({
         </Animated.View>
 
         {/* Content */}
-        <View style={styles.content}>
+        <View key={id} style={styles.content}>
           {/* Title */}
           <View style={styles.titleContainer}>
-            <Text style={styles.title}>{title}</Text>
-            <Text style={styles.subtitle}>{subtitle}</Text>
+            <Text numberOfLines={1} style={styles.title}>{title}</Text>
+            <Text numberOfLines={1} style={styles.subtitle}>{subtitle}</Text>
           </View>
 
-          {/* Match percentage and details */}
           <View style={styles.metaInfo}>
-            <Text style={styles.matchPercentage}>{matchPercentage}</Text>
+            <Text style={styles.matchPercentage}>{category?.slice(0, 23).concat("..")}</Text>
             <Text style={styles.year}>{year}</Text>
             <View style={styles.ratingBadge}>
               <Text style={styles.rating}>{rating}</Text>
@@ -159,60 +158,13 @@ const NetflixCardDetails: React.FC<NetflixCardDetailsProps> = ({
             </Pressable>
           </Animated.View>
 
-          {/* Description */}
-          <Text style={styles.description}>{description}</Text>
+          <Text numberOfLines={2} style={styles.description}>{description}</Text>
 
-          {/* Cast */}
           <Text style={styles.cast}>
-            <Text style={styles.castLabel}>{App.cast}: </Text>
+            <Text numberOfLines={2} style={styles.castLabel}>{App.cast}: </Text>
             {cast}
           </Text>
 
-          {/* Action buttons */}
-          <View style={styles.actionButtons}>
-            <Animated.View
-              style={[{ transform: [{ scale: scaleMylistAnim }] }]}
-            >
-              <Pressable
-                onPressIn={handleMyListPressIn}
-                onPressOut={handleMyListPressOut}
-                onPress={handleAddToList}
-                style={styles.actionBtn}
-              >
-                <View style={styles.iconContainer}>
-                  {isInMyList ? (
-                    <Ionicons name="checkmark" size={20} color="white" />
-                  ) : (
-                    <View style={styles.checkboxEmpty} />
-                  )}
-                </View>
-                <Text style={styles.actionText}>{App.myList}</Text>
-              </Pressable>
-            </Animated.View>
-
-            <Animated.View style={[{ transform: [{ scale: scaleLikeAnim }] }]}>
-              <Pressable
-                onPressIn={handleLikePressIn}
-                onPressOut={handleLikePressOut}
-                style={styles.actionBtn}
-                onPress={onRate}
-              >
-                <View style={styles.iconContainer}>
-                  <Ionicons name="thumbs-up-outline" size={20} color="white" />
-                </View>
-                <Text style={styles.actionText}>{App.rate}</Text>
-              </Pressable>
-            </Animated.View>
-
-            <TouchableOpacity style={styles.actionBtn} onPress={onShare}>
-              <View style={styles.iconContainer}>
-                <Ionicons name="share-outline" size={20} color="white" />
-              </View>
-              <Text style={styles.actionText}>{App.share}</Text>
-            </TouchableOpacity>
-          </View>
-
-          {/* Progress bar */}
           <View style={styles.progressContainer}>
             <View style={styles.progressBar}>
               <View style={styles.progressFill} />
