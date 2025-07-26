@@ -30,6 +30,8 @@ export default function VideoPlayerScreen({
   rating,
   category,
 }: VideoPlayerScreenProps) {
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+
   return (
     <SafeAreaView
       edges={["top"]}
@@ -46,7 +48,11 @@ export default function VideoPlayerScreen({
 
       <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false}>
         {/* Video Player */}
-        <VideoScreen videoSource={videoSource} />
+        <VideoScreen 
+          videoSource={videoSource} 
+          isVideoPlaying={isVideoPlaying}
+          setIsVideoPlaying={setIsVideoPlaying}
+        />
         
         {/* Movie Information */}
         <View style={styles.movieInfo}>
@@ -76,9 +82,9 @@ export default function VideoPlayerScreen({
           </View>
 
           <View style={styles.actionButtons}>
-            <TouchableOpacity style={styles.playButton}>
-              <Ionicons name="play" size={20} color="black" />
-              <Text style={styles.playButtonText}>Play</Text>
+            <TouchableOpacity onPress={() => setIsVideoPlaying(!isVideoPlaying)} style={styles.playButton}>
+              <Ionicons name={isVideoPlaying ? "pause" : "play"} size={20} color="black" />
+              <Text style={styles.playButtonText}>{isVideoPlaying ? "Pause" : "Play"}</Text>
             </TouchableOpacity>
             
             <TouchableOpacity style={styles.downloadButton}>
@@ -118,19 +124,41 @@ export default function VideoPlayerScreen({
   );
 }
 
-function VideoScreen({ videoSource }: VideoPlayerScreenProps) {
+function VideoScreen({ 
+  videoSource, 
+  isVideoPlaying, 
+  setIsVideoPlaying 
+}: { 
+  videoSource?: string; 
+  isVideoPlaying: boolean; 
+  setIsVideoPlaying: (playing: boolean) => void; 
+}) {
   const [showControls, setShowControls] = useState(false);
   const player = useVideoPlayer(
     videoSource ? videoSource : defaultVideoSource,
     (player) => {
       player.loop = true;
       player.play();
+      setIsVideoPlaying(true);
     }
   );
 
   const { isPlaying } = useEvent(player, "playingChange", {
     isPlaying: player.playing,
   });
+
+  // Sync the video player state with the isVideoPlaying state
+  React.useEffect(() => {
+    setIsVideoPlaying(isPlaying);
+  }, [isPlaying, setIsVideoPlaying]);
+
+  React.useEffect(() => {
+    if (isVideoPlaying) {
+      player.play();
+    } else {
+      player.pause();
+    }
+  }, [isVideoPlaying, player]);
 
   return (
     <View style={styles.videoContainer}>
@@ -278,7 +306,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: 12,
-    paddingHorizontal: 32,
+    paddingHorizontal: 20,
     borderRadius: 6,
     flex: 1,
     marginRight: 12,
@@ -287,7 +315,8 @@ const styles = StyleSheet.create({
     color: "black",
     fontSize: 16,
     fontWeight: "bold",
-    marginLeft: 8,
+    marginLeft: 5,
+    width: "100%",
   },
   downloadButton: {
     alignItems: "center",
